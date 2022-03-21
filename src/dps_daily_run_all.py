@@ -23,6 +23,7 @@ if __name__ == "__main__":
     # HRS_PATTERN = r'.*\s+after\s+(\S+)\s+Hours'
     # FILE_NAME = '/media/WindowsShared/list_pre_ER_patient_for_LAB_DPS.xlsx'
     FILE_NAME = './test.xlsx'
+    print('haha')
     
     #connect mssql database
     conn_dbo = generate_connector_of_MS_SQL(IP_Server, User_Server, PWD_Server, DB_Name_Server)
