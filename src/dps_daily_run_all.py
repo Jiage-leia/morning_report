@@ -23,21 +23,18 @@ if __name__ == "__main__":
     # HRS_PATTERN = r'.*\s+after\s+(\S+)\s+Hours'
     # FILE_NAME = '/media/WindowsShared/list_pre_ER_patient_for_LAB_DPS.xlsx'
     FILE_NAME = './test.xlsx'
-    print('haha')
+    
     
     #connect mssql database
     conn_dbo = generate_connector_of_MS_SQL(IP_Server, User_Server, PWD_Server, DB_Name_Server)
     #get date obj of tomorrow
     tomorrow_date = dt.now().date() + timedelta(1)
     #query data IOV
-    data = find_daily_iov(conn_dbo, Schema_Server, date='2022-03-18')
-    print(data)
+    dataIOV = find_daily_iov(conn_dbo, Schema_Server)
     #query data Talk
-    data = find_daily_talk(conn_dbo, Schema_Server)
-    print(data)
+    dataTALK = find_daily_talk(conn_dbo, Schema_Server)
     #query data nppa
-    data = find_daily_nppa(conn_dbo, Schema_Server)
-    print(data)
+    dataNPPA = find_daily_nppa(conn_dbo, Schema_Server)
 
     #call excel api
     if os.path.exists(FILE_NAME):
@@ -55,7 +52,7 @@ if __name__ == "__main__":
 
 #data preprocessing for IOV
     _iov_dict = {'ZHANG': [], 'LIU': [], 'WONG': [], 'ZEITOUN': [], 'MAKAROV': []}
-    for row in data:
+    for row in dataIOV:
         _platform = None
         _reason, _status, _time = row
         _status = APPOINTMENT_CODE_MAP[_status]
@@ -87,12 +84,10 @@ if __name__ == "__main__":
             _iov_dict['MAKAROV'].append([_time, _status, _platform])
             continue
 
-    print(_iov_dict)
-    input()
 
 # data processing for talk
     _talk_dict = {'ZHANG': [], 'LIU': [], 'WONG': [], 'ZEITOUN': [], 'MAKAROV': []}
-    for row in data:
+    for row in dataTALK:
         _platform = None
         _reason, _status, _time = row
         _status = APPOINTMENT_CODE_MAP[_status]
@@ -131,13 +126,10 @@ if __name__ == "__main__":
             _talk_dict['MAKAROV'].append([_time, _status, _platform])
             continue
 
-    print(_talk_dict)
-    input()
-
 
 #data processing for Nurse Practitioner/Physician assistant 
     _nppa_dict = {'IUI': [], 'HSG': [], 'R1': [], 'SIS': []}
-    for row in data:
+    for row in dataNPPA:
         _reason, _status, _time = row
         _status = APPOINTMENT_CODE_MAP[_status]
 
@@ -157,11 +149,6 @@ if __name__ == "__main__":
         if _reason.find("SIS") != -1:
             _nppa_dict['SIS'].append([_time, _status])
             continue
-
-
-    print(_nppa_dict)
-    input()
-
 
     # row_counter = 1
     # for d in data:
