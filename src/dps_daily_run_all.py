@@ -48,7 +48,7 @@ if __name__ == "__main__":
         ws.title = 'DPS'
 
 #define excel header
-    ws.append(['Chart ID', 'Date', 'E2', 'PR-2', '# of Follicles: L side', '# of Follicles: R side', 'Trigger Method', 'Trigger Time', 'ER After Trigger'])
+    ws.append(['MDs','Assignment','IOV','Counseling','Talk'])
 
 #data preprocessing for IOV
     _iov_dict = {'ZHANG': [], 'LIU': [], 'WONG': [], 'ZEITOUN': [], 'MAKAROV': []}
