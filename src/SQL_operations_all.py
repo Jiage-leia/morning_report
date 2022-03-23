@@ -23,11 +23,12 @@ def find_daily_iov(conn, schema, date=None):
         _tomorrow = dt.now().date() + timedelta(1)
     else:
         _tomorrow = date
+    # print(_tomorrow)
     #define sql
     _sql = "select reason, status, CONVERT(time, appt_time) as appt_time " \
            "from {0}.appointment_view " \
            "where appt_date = '{1}' and reason like 'IOV%' " \
-           "order by appt_time;" \
+           "order by appt_time ;" \
            ";".format(schema, _tomorrow)
 
     try:
@@ -47,10 +48,10 @@ def find_daily_talk(conn, schema, date=None):
     #define sql
     _sql_talk = "select reason, status, CONVERT(time, appt_time) as appt_time " \
            "from {0}.appointment_view " \
-           "where appt_date = '{1}' and reason like 'PHONE%' " \
-           "or reason like 'SCAN%' or reason like 'TELE%' or reason like 'CON%' " \
-           "or reason like 'ENDO%' or reason like 'COUR%' " \
-           "order by appt_time;" \
+           "where appt_date = '{1}' and (reason like 'PHONE%' " \
+           "or reason like 'TELE%' or reason like 'CON%' " \
+           "or reason like 'COUR%' or reason like '%TALK') " \
+           "order by appt_time ;" \
            ";".format(schema, _tomorrow)
 
 # cursor is an object which helps to execute the query and fetch the records from the database
@@ -71,10 +72,10 @@ def find_daily_nppa(conn, schema, date=None):
     #define sql
     _sql_nppa = "select reason, status, CONVERT(time, appt_time) as appt_time " \
            "from {0}.appointment_view " \
-           "where appt_date = '{1}' and reason like 'IUI%' " \
-           "or reason like 'HSG' "\
-           "or reason like 'R1' "\
-           "or reason like 'SIS' "\
+           "where appt_date = '{1}' and ( reason like 'IUI%' " \
+           "or reason like '%HSG%' "\
+           "or reason like 'R1%' "\
+           "or reason like 'SIS%' "\
            "order by appt_time;" \
            ";".format(schema, _tomorrow)
 
