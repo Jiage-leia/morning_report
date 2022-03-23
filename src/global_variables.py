@@ -133,6 +133,20 @@ APPOINTMENT_CODE_MAP = {
   10: 'Unknown',
 };
 
+#IN ORDER
+MDs = ["ZHANG", "WONG", "MAKAROV", "LIU", "ZEITOUN"]
+
+MD_TASK = ["IOV", "TALK"]
+
+PA_NP = ['Rosaria', 'Temima', 'Tamana', 'Mariya']
+
+PA_NP_TASK = ["IUI", "HSG", "R1", "SIS"]
+
+PA_NP_TASK_LOCATION = {"Team Captain": "E", "IUI": 'F', "HSG": "G", "R1": "H", "SIS": "I", "Urology Surgery": "J"}
+
+ROW_LIM = 6
+COL_LIM = 'A'
+PANP_ANCHOR = 'NP/PAs'
 
 if __name__ == "__main__":
     print('global_variables.py')
